@@ -1,0 +1,75 @@
+---
+title: "Penugasan Praktikum Anareg Pertemuan 14"
+author: "Alwan Rahmana"
+date: '2022-06-09'
+output: word_document
+---
+
+
+*NOMOR 1*
+```{r}
+data1<-Tugas14_1_Anareg_P_
+tahun<-Tugas14_1_Anareg_P_$Tahun
+ln_produksi<-Tugas14_1_Anareg_P_$ln_produksi
+```
+
+*Membentuk model regresi
+```{r}
+model14_2<-lm(ln_produksi~tahun)
+summary(model14_2)
+anova(model14_2)
+```
+*Interpretasi*
+
+Dari persamaan diatas dapat diinterpretasikan bahwa selama periode 2005-2019, Produksi tumbuh sebesar 4,2% per tahun atau saat periode meningkat 1 tahun, Produksi tumbuh sebesar 4,2%. Tingkat pertumbuhan tersebut diketahui signifikan secara statistik pada tingkat signifikansi 5%. Hal ini dapat diketahui dari tingginya nilai statistik uji-t, yaitu sebesar 3.856, dengan nilai p-value yang sangat kecil. Ceteris Paribus.
+
+
+*Nomor 2*
+```{r}
+data2<-Tugas14_2_Anareg_P_
+data2
+Q<-data2$Q
+L<-data2$L
+C<-data2$C
+ln_Q<-data2$ln_Q
+ln_L<-data2$ln_L
+ln_C<-log(data2$C)
+
+
+
+```
+
+```{r}
+model2<-lm(ln_Q~ln_L+ln_C)
+summary(model2)
+anova(model2)
+```
+
+Dari output diatas, diketahui juga bahwa dari nilai statistik uji F dengan derajat bebas 2 dan 27 (F-statistic: 268.2) memiliki nilai p-value yang sangat kecil, lebih kecil dibandingkan dengan tingkat signifikansi 5%. Hasil tersebut sejalan dengan nilai statistik uji t (t-value) pada variabel ln(C) dan ln(L) yang juga memiliki nilai p-value yang lebih kecil dari tingkat signifikansi 5%. Nilai tersebut menunjukkan bahwa cukup bukti untuk mengatakan ln(C) dan ln(L) berpengaruh secara signifikan terhadap ln(Q). 
+
+Persamaan diatas memiliki nilai R-square yang tinggi, yaitu sebesar  0.9485 , yang dapat diartikan bahwa keragaman nilai ln(Q) yang dapat dijelaskan oleh variabel ln(C) dan ln(L) sebesar 94,85 persen, sedangkan (100-94,85) persen sisanya dijelaskan oleh variabel lain. 
+
+Interpretasi dari koefisien ln(C) dan ln(L) sebesar 0.17711 dan 0.77368 adalah jika ln(C) naik 1%, maka secara rata-rata ln(Q) akan naik sebesar 0,177% dan jika ln(L) naik 1%, maka secara rata-rata ln(Q) akkan naik sebesar 0.77%. Ceteris Paribus.
+
+
+*Nomor 3*
+
+```{r}
+ln_x<-Tugas14_3_Anareg_P_$ln_X
+y<-Tugas14_3_Anareg_P_$Y
+propY<-y/Tugas14_3_Anareg_P_$X
+```
+
+
+```{r}
+model3<-lm(propY~ln_x)
+summary(model3)
+anova(model3)
+plot(x=Tugas14_3_Anareg_P_$ln_X,y=propY)
+-0.07750/100
+
+```
+
+
+Berdasarkan hasil diatas, diketahui bahwa semua koefisien regresi signifikan pada 𝛼 = 0,05. Nilai koefisien regresi ln_x sebesar -0.07750 dapat diartikan jika x naik satu persen, maka secara rata-rata proporsi y naik sebesar (-0.07750/100) atau -0.07750 unit. Hasil ini sesuai dengan hukum Engel. Ceteris Paribus.
+

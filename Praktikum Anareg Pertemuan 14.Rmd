@@ -1,0 +1,118 @@
+---
+title: "Praktikum Anareg Pertemuan 14"
+author: "Alwan Rahmana"
+date: '2022-06-09'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+d1<-X14_1
+d2<-X14_2
+d3<-X14_3
+```
+
+```{r}
+Y<-d1$Y
+X<-d1$X
+
+ln_X<-log(X)
+ln_Y<-log(Y)
+```
+
+```{r}
+#plot x dan y aja
+plot(x=X, y=Y,
+     xlab="Harga (rupiah)",
+     ylab="Penjualan (unit)",
+     main="Scatter Plot antara Harga dan Volume Penjualan",
+     cex.main=1)
+
+#plot ln x dan ln y
+
+plot(x=ln_X, y=ln_Y,
+     xlab="Harga (rupiah)",
+     ylab="Penjualan (unit)",
+     main="Scatter Plot antara LN Harga dan LN Volume Penjualan",
+     cex.main=1)
+
+```
+
+Pola scatter plot antara x dan y menunjukkan adanya pola eksponensial (Plot atas). Hasil scatter plot dari ln(volum penjualan) dan ln(harga) terlihat memiliki pola yang linier mengikuti pola garis lurus (plot bawah).
+
+```{r}
+model14_1<-lm(ln_Y~ln_X)
+summary(model14_1)
+anova(model14_1)
+```
+
+*Interpretasi*
+
+Dari output diatas, diketahui juga bahwa dari nilai statistik uji F dengan derajat bebas 1 dan 28 (F-statistic: 301,584) memiliki nilai p-value yang sangat kecil, lebih kecil dibandingkan dengan tingkat signifikansi 5%. Hasil tersebut sejalan dengan nilai statistik uji t (t-value) pada variabel ln(Harga) yang juga memiliki nilai p-value yang lebih kecil dari tingkat signifikansi 5%. Nilai tersebut menunjukkan bahwa cukup bukti untuk mengatakan ln(Harga) berpengaruh secara signifikan terhadap ln(VolumePenjualan). Persamaan diatas memiliki nilai R-square yang tinggi, yaitu sebesar 0,915, yang dapat diartikan bahwa keragaman nilai ln(VolumePenjualan) yang dapat dijelaskan oleh variabel ln(Harga) sebesar 91,5 persen, sedangkan 8,5 persen sisanya dijelaskan oleh variabel lain. Interpretasi dari koefisien ln(Harga) sebesar -0,962 adalah jika harga naik 1%, maka secara rata-rata Volume Penjualan akan turun sebesar 0,962%.
+
+```{r}
+t<-d2$t
+PDB<-d2$Y
+
+ln_PDB<-log(PDB)
+```
+
+*Membentuk Regresi Linier*
+
+```{r}
+model14_2<-lm(ln_PDB~t)
+summary(model14_2)
+anova(model14_2)
+```
+
+Dari persamaan diatas dapat diinterpretasikan bahwa selama periode 2000-2014, PDB Indonesia tumbuh sebesar 5,4% per tahun atau saat periode meningkat 1 tahun, PDB Indonesia tumbuh sebesar 5,4%. Tingkat pertumbuhan tersebut diketahui signifikan secara statistik pada tingkat signifikansi 5%. Hal ini dapat diketahui dari tingginya nilai statistik uji-t, yaitu sebesar 74,404, dengan nilai p-value yang sangat kecil.
+
+```{r}
+fdho<-d3$fdho
+expend<-d3$expend
+sfdho<-d3$sfdho
+lnexpend<-d3$lnexpend
+```
+
+```{r}
+#plot sfdho dan ln expend
+
+plot(x=lnexpend, y=sfdho,
+     xlab="ln expenditure",
+     ylab="sfdho",
+     main="Scatter Plot antara ln expenditure dan sfdho",
+     cex.main=1)
+```
+
+```{r}
+model14_3<-lm(sfdho~lnexpend)
+summary(model14_3)
+anova(model14_3)
+```
+
+*Interpretasi*
+
+Berdasarkan hasil diatas, diketahui bahwa semua koefisien regresi signifikan pada 𝛼 = 0,05. Nilai koefisien regresi lnexpend sebesar -0,053 dapat diartikan jika total pengeluaran naik satu persen, maka secara rata-rata proporsi pengeluaran untuk makanan dan minuman non-alkohol turun sebesar (0,053/100) atau 0,00053 unit. Hasil ini sesuai dengan hukum Engel.
